@@ -83,4 +83,6 @@ Zwei Entscheidungen prägen das Ganze:
 
 ## Grenzen des Prototyps
 
-Keine echte Anmeldung, keine Zahlungsabwicklung, kein Versand von E-Mails oder Push-Nachrichten. Inhalte wie News-Texte und WOD-Beschreibungen sind deutsch; die Sprachumschaltung deckt die Bedienoberfläche ab, nicht die redaktionellen Inhalte — genau wie später im echten Betrieb, wo diese Inhalte von der Box selbst stammen.
+Keine echte Anmeldung, keine Zahlungsabwicklung, kein Versand von E-Mails oder Push-Nachrichten.
+
+Die Sprachumschaltung deckt das Gerüst ab: Navigation in allen vier Rollen, Kursplan, Buchungsbegriffe sowie Datums-, Wochentags- und Zahlenformate. Die Texte innerhalb der einzelnen Seiten sind bislang deutsch — die Wörterbücher unter `src/i18n/` und der Fallback in `translate()` sind so angelegt, dass sie Seite für Seite nachgezogen werden können, ohne dass eine fehlende Übersetzung die Oberfläche kaputt macht. Redaktionelle Inhalte wie News-Texte und WOD-Beschreibungen bleiben ohnehin deutsch — die stammen später von der Box selbst.

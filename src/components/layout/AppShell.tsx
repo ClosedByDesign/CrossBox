@@ -6,9 +6,21 @@ import { useCurrentUser, useDb, useDemoStore } from '../../store';
 import { Avatar, Badge } from '../ui';
 import { MEMBER_TABS, COACH_TABS, homeForRole, navForRole, type NavItem } from './navigation';
 import { ThemeToggle } from './ThemeToggle';
+import { useT } from '../../i18n';
+
+/** Übersetzt einen Navigationseintrag – ohne Schlüssel oder Wörterbucheintrag bleibt der deutsche Text stehen */
+export function useNavLabel() {
+  const { t } = useT();
+  return (entry: { label: string; key?: string }) => {
+    if (!entry.key) return entry.label;
+    const value = t(entry.key);
+    return value === entry.key ? entry.label : value;
+  };
+}
 
 function NavLinkRow({ item, onNavigate }: { item: NavItem; onNavigate?: () => void }) {
   const Icon = item.icon;
+  const navLabel = useNavLabel();
   return (
     <NavLink
       to={item.to}
@@ -22,7 +34,7 @@ function NavLinkRow({ item, onNavigate }: { item: NavItem; onNavigate?: () => vo
       }
     >
       <Icon size={17} className="shrink-0" />
-      <span className="truncate">{item.label}</span>
+      <span className="truncate">{navLabel(item)}</span>
     </NavLink>
   );
 }
@@ -35,6 +47,8 @@ export function AppShell({ children }: { children?: ReactNode }) {
   const stopImpersonation = useDemoStore((s) => s.stopImpersonation);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const navLabel = useNavLabel();
+  const { t } = useT();
 
   if (!user) return null;
 
@@ -103,7 +117,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
               </span>
             )}
           </NavLink>
-          <NavLink to="/login" className="rounded-lg p-2 text-muted no-underline hover:bg-elevated hover:text-ink" aria-label="Abmelden">
+          <NavLink to="/login" className="rounded-lg p-2 text-muted no-underline hover:bg-elevated hover:text-ink" aria-label={t('common.logout')}>
             <LogOut size={18} />
           </NavLink>
           <Avatar name={`${user.firstName} ${user.lastName}`} hue={user.avatarHue} size={30} className="ml-1" />
@@ -115,7 +129,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
         <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-60 shrink-0 overflow-y-auto border-r border-line bg-surface px-3 py-4 lg:block">
           {groups.map((group) => (
             <div key={group.label} className="mb-4">
-              <p className="mb-1 px-3 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{group.label}</p>
+              <p className="mb-1 px-3 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{navLabel(group)}</p>
               <div className="flex flex-col gap-0.5">
                 {group.items.map((item) => (
                   <NavLinkRow key={item.to} item={item} />
@@ -131,14 +145,14 @@ export function AppShell({ children }: { children?: ReactNode }) {
             <div className="absolute inset-0 bg-black/60 animate-fade-in" onClick={() => setMobileNavOpen(false)} />
             <nav className="absolute inset-y-0 left-0 w-72 overflow-y-auto border-r border-line bg-surface px-3 py-4 animate-slide-up">
               <div className="mb-3 flex items-center justify-between px-2">
-                <span className="font-display text-sm uppercase tracking-wide">Navigation</span>
-                <button type="button" onClick={() => setMobileNavOpen(false)} aria-label="Schließen" className="p-1 text-muted">
+                <span className="font-display text-sm uppercase tracking-wide">{t('nav.title')}</span>
+                <button type="button" onClick={() => setMobileNavOpen(false)} aria-label={t('common.close')} className="p-1 text-muted">
                   <X size={18} />
                 </button>
               </div>
               {groups.map((group) => (
                 <div key={group.label} className="mb-4">
-                  <p className="mb-1 px-3 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{group.label}</p>
+                  <p className="mb-1 px-3 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{navLabel(group)}</p>
                   <div className="flex flex-col gap-0.5">
                     {group.items.map((item) => (
                       <NavLinkRow key={item.to} item={item} onNavigate={() => setMobileNavOpen(false)} />
@@ -174,7 +188,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
                   }
                 >
                   <Icon size={19} />
-                  {item.label}
+                  {navLabel(item)}
                 </NavLink>
               );
             })}
@@ -184,7 +198,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
               className="flex flex-1 flex-col items-center gap-0.5 py-2 text-[0.65rem] font-semibold text-muted"
             >
               <MoreHorizontal size={19} />
-              Mehr
+              {t('common.more')}
             </button>
           </nav>
 
@@ -193,14 +207,14 @@ export function AppShell({ children }: { children?: ReactNode }) {
               <div className="absolute inset-0 bg-black/60 animate-fade-in" onClick={() => setMoreOpen(false)} />
               <div className="absolute inset-x-0 bottom-0 max-h-[75vh] overflow-y-auto rounded-t-2xl border-t border-line bg-surface px-4 pb-6 pt-4 animate-slide-up">
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="font-display text-base uppercase tracking-wide">Alle Bereiche</span>
-                  <button type="button" onClick={() => setMoreOpen(false)} aria-label="Schließen" className="p-1 text-muted">
+                  <span className="font-display text-base uppercase tracking-wide">{t('nav.allAreas')}</span>
+                  <button type="button" onClick={() => setMoreOpen(false)} aria-label={t('common.close')} className="p-1 text-muted">
                     <X size={18} />
                   </button>
                 </div>
                 {groups.map((group) => (
                   <div key={group.label} className="mb-3">
-                    <p className="mb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{group.label}</p>
+                    <p className="mb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-muted/70">{navLabel(group)}</p>
                     <div className="grid grid-cols-2 gap-1">
                       {group.items.map((item) => (
                         <NavLinkRow key={item.to} item={item} onNavigate={() => setMoreOpen(false)} />

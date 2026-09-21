@@ -55,6 +55,8 @@ export const de = {
   },
 
   nav: {
+    title: 'Navigation',
+    allAreas: 'Alle Bereiche',
     dashboard: 'Start',
     schedule: 'Kursplan',
     bookings: 'Buchungen',
@@ -87,6 +89,21 @@ export const de = {
     communication: 'Kommunikation',
     overview: 'Übersicht',
     finance: 'Verträge & Geld',
+    account: 'Konto',
+    system: 'System',
+    reports: 'Auswertungen',
+    today: 'Heute',
+    contract: 'Vertrag',
+    ranking: 'Rangliste',
+    wodLibrary: 'WOD-Bibliothek',
+    scheduling: 'Kursplanung',
+    exceptions: 'Feiertage & Absagen',
+    trainers: 'Trainer',
+    requests: 'Anfragen',
+    articles: 'Artikel',
+    customers: 'Kunden',
+    business: 'Geschäft',
+    platformPlans: 'Plattform-Tarife',
   },
 
   booking: {

@@ -32,168 +32,172 @@ import type { Role } from '../../data/types';
 
 export interface NavItem {
   to: string;
+  /** Fallback-Text auf Deutsch */
   label: string;
+  /** Schlüssel im Wörterbuch, falls übersetzt */
+  key?: string;
   icon: LucideIcon;
   end?: boolean;
 }
 
 export interface NavGroup {
   label: string;
+  key?: string;
   items: NavItem[];
 }
 
 export const MEMBER_NAV: NavGroup[] = [
   {
-    label: 'Training',
+    label: 'Training', key: 'nav.training',
     items: [
-      { to: '/app', label: 'Start', icon: Home, end: true },
-      { to: '/app/kursplan', label: 'Kursplan', icon: CalendarDays },
-      { to: '/app/buchungen', label: 'Meine Buchungen', icon: ClipboardList },
-      { to: '/app/checkin', label: 'Check-in', icon: QrCode },
-      { to: '/app/wods', label: 'WODs', icon: Dumbbell },
-      { to: '/app/ergebnisse', label: 'Ergebnisse', icon: Activity },
-      { to: '/app/rekorde', label: 'Rekorde', icon: Trophy },
-      { to: '/app/leaderboard', label: 'Leaderboard', icon: Flag },
+      { to: '/app', label: 'Start', key: 'nav.dashboard', icon: Home, end: true },
+      { to: '/app/kursplan', label: 'Kursplan', key: 'nav.schedule', icon: CalendarDays },
+      { to: '/app/buchungen', label: 'Meine Buchungen', key: 'nav.bookings', icon: ClipboardList },
+      { to: '/app/checkin', label: 'Check-in', key: 'nav.checkin', icon: QrCode },
+      { to: '/app/wods', label: 'WODs', key: 'nav.wods', icon: Dumbbell },
+      { to: '/app/ergebnisse', label: 'Ergebnisse', key: 'nav.results', icon: Activity },
+      { to: '/app/rekorde', label: 'Rekorde', key: 'nav.records', icon: Trophy },
+      { to: '/app/leaderboard', label: 'Leaderboard', key: 'nav.leaderboard', icon: Flag },
     ],
   },
   {
-    label: 'Mitgliedschaft',
+    label: 'Mitgliedschaft', key: 'nav.membership',
     items: [
-      { to: '/app/mitgliedschaft', label: 'Vertrag', icon: FileText },
-      { to: '/app/rechnungen', label: 'Rechnungen', icon: Receipt },
+      { to: '/app/mitgliedschaft', label: 'Vertrag', key: 'nav.contract', icon: FileText },
+      { to: '/app/rechnungen', label: 'Rechnungen', key: 'nav.invoices', icon: Receipt },
     ],
   },
   {
-    label: 'Shop',
+    label: 'Shop', key: 'nav.shop',
     items: [
-      { to: '/app/shop', label: 'Shop', icon: ShoppingBag },
-      { to: '/app/bestellungen', label: 'Bestellungen', icon: Package },
+      { to: '/app/shop', label: 'Shop', key: 'nav.shop', icon: ShoppingBag },
+      { to: '/app/bestellungen', label: 'Bestellungen', key: 'nav.orders', icon: Package },
     ],
   },
   {
-    label: 'Konto',
+    label: 'Konto', key: 'nav.account',
     items: [
-      { to: '/app/news', label: 'News', icon: Megaphone },
-      { to: '/app/benachrichtigungen', label: 'Benachrichtigungen', icon: Bell },
-      { to: '/app/profil', label: 'Profil', icon: Users },
-      { to: '/app/einstellungen', label: 'Einstellungen', icon: Settings },
-      { to: '/app/hilfe', label: 'Hilfe', icon: HelpCircle },
+      { to: '/app/news', label: 'News', key: 'nav.news', icon: Megaphone },
+      { to: '/app/benachrichtigungen', label: 'Benachrichtigungen', key: 'common.notifications', icon: Bell },
+      { to: '/app/profil', label: 'Profil', key: 'common.profile', icon: Users },
+      { to: '/app/einstellungen', label: 'Einstellungen', key: 'common.settings', icon: Settings },
+      { to: '/app/hilfe', label: 'Hilfe', key: 'common.help', icon: HelpCircle },
     ],
   },
 ];
 
 export const MEMBER_TABS: NavItem[] = [
-  { to: '/app', label: 'Start', icon: Home, end: true },
-  { to: '/app/kursplan', label: 'Kursplan', icon: CalendarDays },
-  { to: '/app/buchungen', label: 'Buchungen', icon: ClipboardList },
-  { to: '/app/leaderboard', label: 'Rangliste', icon: Trophy },
+  { to: '/app', label: 'Start', key: 'nav.dashboard', icon: Home, end: true },
+  { to: '/app/kursplan', label: 'Kursplan', key: 'nav.schedule', icon: CalendarDays },
+  { to: '/app/buchungen', label: 'Buchungen', key: 'nav.bookings', icon: ClipboardList },
+  { to: '/app/leaderboard', label: 'Rangliste', key: 'nav.ranking', icon: Trophy },
 ];
 
 export const COACH_NAV: NavGroup[] = [
   {
-    label: 'Kurse',
+    label: 'Kurse', key: 'nav.courses',
     items: [
-      { to: '/coach', label: 'Heute', icon: Home, end: true },
-      { to: '/coach/kursplan', label: 'Kursplan', icon: CalendarDays },
+      { to: '/coach', label: 'Heute', key: 'nav.today', icon: Home, end: true },
+      { to: '/coach/kursplan', label: 'Kursplan', key: 'nav.schedule', icon: CalendarDays },
     ],
   },
   {
-    label: 'Training',
+    label: 'Training', key: 'nav.training',
     items: [
-      { to: '/coach/wods', label: 'WOD-Bibliothek', icon: Dumbbell },
-      { to: '/coach/athleten', label: 'Athleten', icon: Users },
+      { to: '/coach/wods', label: 'WOD-Bibliothek', key: 'nav.wodLibrary', icon: Dumbbell },
+      { to: '/coach/athleten', label: 'Athleten', key: 'nav.athletes', icon: Users },
     ],
   },
   {
-    label: 'Konto',
+    label: 'Konto', key: 'nav.account',
     items: [
-      { to: '/coach/benachrichtigungen', label: 'Benachrichtigungen', icon: Bell },
-      { to: '/coach/einstellungen', label: 'Einstellungen', icon: Settings },
+      { to: '/coach/benachrichtigungen', label: 'Benachrichtigungen', key: 'common.notifications', icon: Bell },
+      { to: '/coach/einstellungen', label: 'Einstellungen', key: 'common.settings', icon: Settings },
     ],
   },
 ];
 
 export const COACH_TABS: NavItem[] = [
-  { to: '/coach', label: 'Heute', icon: Home, end: true },
-  { to: '/coach/kursplan', label: 'Kursplan', icon: CalendarDays },
-  { to: '/coach/wods', label: 'WODs', icon: Dumbbell },
-  { to: '/coach/athleten', label: 'Athleten', icon: Users },
+  { to: '/coach', label: 'Heute', key: 'nav.today', icon: Home, end: true },
+  { to: '/coach/kursplan', label: 'Kursplan', key: 'nav.schedule', icon: CalendarDays },
+  { to: '/coach/wods', label: 'WODs', key: 'nav.wods', icon: Dumbbell },
+  { to: '/coach/athleten', label: 'Athleten', key: 'nav.athletes', icon: Users },
 ];
 
 export const ADMIN_NAV: NavGroup[] = [
-  { label: 'Übersicht', items: [{ to: '/admin', label: 'Dashboard', icon: Gauge, end: true }] },
+  { label: 'Übersicht', key: 'nav.overview', items: [{ to: '/admin', label: 'Dashboard', key: 'nav.dashboard', icon: Gauge, end: true }] },
   {
-    label: 'Kurse',
+    label: 'Kurse', key: 'nav.courses',
     items: [
-      { to: '/admin/kursplan', label: 'Kursplanung', icon: CalendarDays },
-      { to: '/admin/kursarten', label: 'Kursarten', icon: CalendarRange },
-      { to: '/admin/ausnahmen', label: 'Feiertage & Absagen', icon: Flag },
+      { to: '/admin/kursplan', label: 'Kursplanung', key: 'nav.scheduling', icon: CalendarDays },
+      { to: '/admin/kursarten', label: 'Kursarten', key: 'nav.courseTypes', icon: CalendarRange },
+      { to: '/admin/ausnahmen', label: 'Feiertage & Absagen', key: 'nav.exceptions', icon: Flag },
     ],
   },
   {
-    label: 'Mitglieder',
+    label: 'Mitglieder', key: 'nav.members',
     items: [
-      { to: '/admin/mitglieder', label: 'Mitglieder', icon: Users },
-      { to: '/admin/interessenten', label: 'Interessenten', icon: UserPlus },
-      { to: '/admin/anwesenheit', label: 'Anwesenheit', icon: UserCheck },
+      { to: '/admin/mitglieder', label: 'Mitglieder', key: 'nav.members', icon: Users },
+      { to: '/admin/interessenten', label: 'Interessenten', key: 'nav.leads', icon: UserPlus },
+      { to: '/admin/anwesenheit', label: 'Anwesenheit', key: 'nav.attendance', icon: UserCheck },
     ],
   },
   {
-    label: 'Verträge & Geld',
+    label: 'Verträge & Geld', key: 'nav.finance',
     items: [
-      { to: '/admin/vertraege', label: 'Verträge', icon: FileText },
-      { to: '/admin/tarife', label: 'Tarife', icon: Tags },
-      { to: '/admin/rechnungen', label: 'Rechnungen', icon: Receipt },
+      { to: '/admin/vertraege', label: 'Verträge', key: 'nav.contracts', icon: FileText },
+      { to: '/admin/tarife', label: 'Tarife', key: 'nav.plans', icon: Tags },
+      { to: '/admin/rechnungen', label: 'Rechnungen', key: 'nav.invoices', icon: Receipt },
     ],
   },
   {
-    label: 'Training',
+    label: 'Training', key: 'nav.training',
     items: [
-      { to: '/admin/wods', label: 'WOD-Bibliothek', icon: Dumbbell },
-      { to: '/admin/leaderboard', label: 'Leaderboard', icon: Trophy },
+      { to: '/admin/wods', label: 'WOD-Bibliothek', key: 'nav.wodLibrary', icon: Dumbbell },
+      { to: '/admin/leaderboard', label: 'Leaderboard', key: 'nav.leaderboard', icon: Trophy },
     ],
   },
-  { label: 'Team', items: [{ to: '/admin/trainer', label: 'Trainer', icon: Sparkles }] },
+  { label: 'Team', key: 'nav.team', items: [{ to: '/admin/trainer', label: 'Trainer', key: 'nav.trainers', icon: Sparkles }] },
   {
-    label: 'Kommunikation',
+    label: 'Kommunikation', key: 'nav.communication',
     items: [
-      { to: '/admin/news', label: 'News', icon: Megaphone },
-      { to: '/admin/anfragen', label: 'Anfragen', icon: LifeBuoy },
+      { to: '/admin/news', label: 'News', key: 'nav.news', icon: Megaphone },
+      { to: '/admin/anfragen', label: 'Anfragen', key: 'nav.requests', icon: LifeBuoy },
     ],
   },
   {
-    label: 'Shop',
+    label: 'Shop', key: 'nav.shop',
     items: [
-      { to: '/admin/shop', label: 'Artikel', icon: ShoppingBag },
-      { to: '/admin/bestellungen', label: 'Bestellungen', icon: Package },
+      { to: '/admin/shop', label: 'Artikel', key: 'nav.articles', icon: ShoppingBag },
+      { to: '/admin/bestellungen', label: 'Bestellungen', key: 'nav.orders', icon: Package },
     ],
   },
-  { label: 'Auswertungen', items: [{ to: '/admin/statistiken', label: 'Statistiken', icon: BarChart3 }] },
-  { label: 'System', items: [{ to: '/admin/einstellungen', label: 'Einstellungen', icon: Settings }] },
+  { label: 'Auswertungen', key: 'nav.reports', items: [{ to: '/admin/statistiken', label: 'Statistiken', key: 'nav.statistics', icon: BarChart3 }] },
+  { label: 'System', key: 'nav.system', items: [{ to: '/admin/einstellungen', label: 'Einstellungen', key: 'common.settings', icon: Settings }] },
 ];
 
 export const PLATFORM_NAV: NavGroup[] = [
-  { label: 'Übersicht', items: [{ to: '/platform', label: 'Dashboard', icon: Gauge, end: true }] },
+  { label: 'Übersicht', key: 'nav.overview', items: [{ to: '/platform', label: 'Dashboard', key: 'nav.dashboard', icon: Gauge, end: true }] },
   {
-    label: 'Kunden',
+    label: 'Kunden', key: 'nav.customers',
     items: [
-      { to: '/platform/mandanten', label: 'Mandanten', icon: Building2 },
-      { to: '/platform/support', label: 'Support', icon: LifeBuoy },
+      { to: '/platform/mandanten', label: 'Mandanten', key: 'nav.tenants', icon: Building2 },
+      { to: '/platform/support', label: 'Support', key: 'nav.support', icon: LifeBuoy },
     ],
   },
   {
-    label: 'Geschäft',
+    label: 'Geschäft', key: 'nav.business',
     items: [
-      { to: '/platform/abrechnung', label: 'Abrechnung', icon: CreditCard },
-      { to: '/platform/tarife', label: 'Plattform-Tarife', icon: Tags },
-      { to: '/platform/statistiken', label: 'Statistiken', icon: BarChart3 },
+      { to: '/platform/abrechnung', label: 'Abrechnung', key: 'nav.billing', icon: CreditCard },
+      { to: '/platform/tarife', label: 'Plattform-Tarife', key: 'nav.platformPlans', icon: Tags },
+      { to: '/platform/statistiken', label: 'Statistiken', key: 'nav.statistics', icon: BarChart3 },
     ],
   },
   {
-    label: 'System',
+    label: 'System', key: 'nav.system',
     items: [
-      { to: '/platform/features', label: 'Features', icon: Flag },
-      { to: '/platform/einstellungen', label: 'Einstellungen', icon: Settings },
+      { to: '/platform/features', label: 'Features', key: 'nav.features', icon: Flag },
+      { to: '/platform/einstellungen', label: 'Einstellungen', key: 'common.settings', icon: Settings },
     ],
   },
 ];

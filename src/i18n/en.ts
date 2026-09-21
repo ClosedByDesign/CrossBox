@@ -57,6 +57,8 @@ export const en: Dictionary = {
   },
 
   nav: {
+    title: 'Navigation',
+    allAreas: 'All areas',
     dashboard: 'Home',
     schedule: 'Schedule',
     bookings: 'Bookings',
@@ -89,6 +91,21 @@ export const en: Dictionary = {
     communication: 'Communication',
     overview: 'Overview',
     finance: 'Contracts & billing',
+    account: 'Account',
+    system: 'System',
+    reports: 'Reports',
+    today: 'Today',
+    contract: 'Contract',
+    ranking: 'Ranking',
+    wodLibrary: 'WOD library',
+    scheduling: 'Class planning',
+    exceptions: 'Holidays & cancellations',
+    trainers: 'Coaches',
+    requests: 'Requests',
+    articles: 'Articles',
+    customers: 'Customers',
+    business: 'Business',
+    platformPlans: 'Platform plans',
   },
 
   booking: {
