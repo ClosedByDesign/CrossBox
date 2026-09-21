@@ -10,6 +10,7 @@ import { addDays, isoWeekNumber, startOfWeek, toDateKey, today } from '../../lib
 import { formatDate, relativeDayLabel } from '../../lib/format';
 import { useDb, useDemoStore } from '../../store';
 import { useWeekdayNames } from '../../i18n';
+import { isCoach } from '../../data/types';
 
 export default function MemberSchedule() {
   const db = useDb();
@@ -28,7 +29,7 @@ export default function MemberSchedule() {
 
   const byDay = groupByDay(sessions);
   const daySessions = byDay.get(activeDay) ?? [];
-  const coaches = db.users.filter((u) => u.role === 'coach');
+  const coaches = db.users.filter(isCoach);
   const kinds = Array.from(new Set(db.courseTemplates.map((t) => t.kind)));
   const activeFilterCount =
     (filters.kind !== 'alle' ? 1 : 0) + (filters.coachId !== 'alle' ? 1 : 0) + (filters.onlyFree ? 1 : 0) + (filters.onlyMine ? 1 : 0);

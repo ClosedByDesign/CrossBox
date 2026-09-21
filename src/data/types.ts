@@ -381,3 +381,8 @@ export interface DemoData {
   featureFlags: FeatureFlag[];
   scheduleExceptions: ScheduleException[];
 }
+
+/** Wer Kurse gibt: Trainer und die Boxleitung, die selbst auf der Fläche steht */
+export function isCoach(user: Pick<User, 'role'>): boolean {
+  return user.role === 'coach' || user.role === 'box-admin';
+}

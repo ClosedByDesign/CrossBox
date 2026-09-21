@@ -137,12 +137,12 @@ function slugEmail(first: string, last: string): string {
   return `${clean(first)}.${clean(last)}@example.com`;
 }
 
-/** Trainer der Hauptbox */
+/** Trainerteam der Hauptbox. Petra ist Inhaberin – sie trainiert und führt die Box. */
 export function buildCoaches(tenantId: string): User[] {
   return COACHES.map((c, i) => ({
     ...c,
     tenantId,
-    role: 'coach' as const,
+    role: (c.id === 'u-coach-petra' ? 'box-admin' : 'coach') as User['role'],
     avatarHue: (i * 61 + 18) % 360,
     status: 'aktiv' as const,
   }));

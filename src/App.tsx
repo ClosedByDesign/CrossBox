@@ -18,6 +18,28 @@ import WodLibrary from './pages/member/WodLibrary';
 import Shop, { ArticleDetail, Cart, Checkout, Orders } from './pages/member/Shop';
 import Membership, { Invoices } from './pages/member/Membership';
 import { Help, News, NewsDetail, Notifications, Profile, Settings } from './pages/member/Account';
+import {
+  CoachAthleteDetail,
+  CoachAthletes,
+  CoachDashboard,
+  CoachSchedule,
+  CoachSessionDetail,
+} from './pages/coach/CoachPages';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import { AdminCourseTypeEdit, AdminCourseTypes, AdminExceptions, AdminSchedule } from './pages/admin/AdminSchedule';
+import { AdminAttendance, AdminLeads, AdminMemberDetail, AdminMembers } from './pages/admin/AdminMembers';
+import {
+  AdminCoaches,
+  AdminContracts,
+  AdminInvoices,
+  AdminLeaderboard,
+  AdminOrders,
+  AdminPlans,
+  AdminShop,
+} from './pages/admin/AdminBusiness';
+import { AdminNews, AdminNewsEdit, AdminRequests } from './pages/admin/AdminContent';
+import AdminStats from './pages/admin/AdminStats';
+import AdminSettings from './pages/admin/AdminSettings';
 import { TvDaySchedule, TvLauncher, TvLeaderboard, TvSession, TvTimer } from './pages/tv/TvViews';
 import Kiosk from './pages/tv/Kiosk';
 
@@ -60,38 +82,45 @@ export default function App() {
         {/* Trainer */}
         <Route element={<RoleGate allow={['coach', 'box-admin', 'super-admin']} />}>
           <Route path="/coach" element={<AppShell />}>
-            <Route index element={<Placeholder title="Heute" />} />
-            <Route path="kursplan" element={<Placeholder title="Kursplan" />} />
-            <Route path="wods" element={<Placeholder title="WOD-Bibliothek" />} />
-            <Route path="athleten" element={<Placeholder title="Athleten" />} />
-            <Route path="benachrichtigungen" element={<Placeholder title="Benachrichtigungen" />} />
-            <Route path="einstellungen" element={<Placeholder title="Einstellungen" />} />
+            <Route index element={<CoachDashboard />} />
+            <Route path="kursplan" element={<CoachSchedule />} />
+            <Route path="kurs/:sessionId" element={<CoachSessionDetail />} />
+            <Route path="wods" element={<WodLibrary />} />
+            <Route path="athleten" element={<CoachAthletes />} />
+            <Route path="athleten/:athleteId" element={<CoachAthleteDetail />} />
+            <Route path="benachrichtigungen" element={<Notifications />} />
+            <Route path="einstellungen" element={<Settings />} />
           </Route>
         </Route>
 
         {/* Box-Admin */}
         <Route element={<RoleGate allow={['box-admin', 'super-admin']} />}>
           <Route path="/admin" element={<AppShell />}>
-            <Route index element={<Placeholder title="Dashboard" />} />
-            <Route path="kursplan" element={<Placeholder title="Kursplanung" />} />
-            <Route path="kursarten" element={<Placeholder title="Kursarten" />} />
-            <Route path="ausnahmen" element={<Placeholder title="Feiertage & Absagen" />} />
-            <Route path="mitglieder" element={<Placeholder title="Mitglieder" />} />
-            <Route path="interessenten" element={<Placeholder title="Interessenten" />} />
-            <Route path="anwesenheit" element={<Placeholder title="Anwesenheit" />} />
-            <Route path="vertraege" element={<Placeholder title="Verträge" />} />
-            <Route path="tarife" element={<Placeholder title="Tarife" />} />
-            <Route path="rechnungen" element={<Placeholder title="Rechnungen" />} />
-            <Route path="wods" element={<Placeholder title="WOD-Bibliothek" />} />
-            <Route path="leaderboard" element={<Placeholder title="Leaderboard" />} />
-            <Route path="trainer" element={<Placeholder title="Trainer" />} />
-            <Route path="news" element={<Placeholder title="News" />} />
-            <Route path="anfragen" element={<Placeholder title="Anfragen" />} />
-            <Route path="shop" element={<Placeholder title="Artikel" />} />
-            <Route path="bestellungen" element={<Placeholder title="Bestellungen" />} />
-            <Route path="statistiken" element={<Placeholder title="Statistiken" />} />
-            <Route path="einstellungen" element={<Placeholder title="Box-Einstellungen" />} />
-            <Route path="benachrichtigungen" element={<Placeholder title="Benachrichtigungen" />} />
+            <Route index element={<AdminDashboard />} />
+            <Route path="kursplan" element={<AdminSchedule />} />
+            <Route path="kurs/:sessionId" element={<CoachSessionDetail basePath="/admin" />} />
+            <Route path="kursarten" element={<AdminCourseTypes />} />
+            <Route path="kursarten/:templateId" element={<AdminCourseTypeEdit />} />
+            <Route path="ausnahmen" element={<AdminExceptions />} />
+            <Route path="mitglieder" element={<AdminMembers />} />
+            <Route path="mitglieder/:memberId" element={<AdminMemberDetail />} />
+            <Route path="interessenten" element={<AdminLeads />} />
+            <Route path="anwesenheit" element={<AdminAttendance />} />
+            <Route path="vertraege" element={<AdminContracts />} />
+            <Route path="tarife" element={<AdminPlans />} />
+            <Route path="rechnungen" element={<AdminInvoices />} />
+            <Route path="wods" element={<WodLibrary />} />
+            <Route path="leaderboard" element={<AdminLeaderboard />} />
+            <Route path="trainer" element={<AdminCoaches />} />
+            <Route path="athleten/:athleteId" element={<CoachAthleteDetail basePath="/admin" />} />
+            <Route path="news" element={<AdminNews />} />
+            <Route path="news/:newsId" element={<AdminNewsEdit />} />
+            <Route path="anfragen" element={<AdminRequests />} />
+            <Route path="shop" element={<AdminShop />} />
+            <Route path="bestellungen" element={<AdminOrders />} />
+            <Route path="statistiken" element={<AdminStats />} />
+            <Route path="einstellungen" element={<AdminSettings />} />
+            <Route path="benachrichtigungen" element={<Notifications />} />
           </Route>
         </Route>
 
