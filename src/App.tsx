@@ -1,5 +1,21 @@
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import { AppShell } from './components/layout/AppShell';
+import { PublicLayout } from './components/layout/PublicLayout';
+import {
+  About,
+  Classes,
+  Contact,
+  Faq,
+  Home,
+  Imprint,
+  Pricing,
+  Privacy,
+  PublicSchedule,
+  Terms,
+  Trainers,
+  Trial,
+} from './pages/public/PublicPages';
+import { ForgotPassword, Login, Onboarding, Register, ResetPassword } from './pages/auth/AuthPages';
 import { DemoBar } from './components/layout/DemoBar';
 import { ThemeManager } from './components/layout/ThemeToggle';
 import { Toaster } from './components/ui/Toast';
@@ -59,7 +75,28 @@ export default function App() {
     <HashRouter>
       <ThemeManager />
       <Routes>
-        <Route path="/" element={<Navigate to="/app" replace />} />
+        {/* Öffentliche Website */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/kurse" element={<Classes />} />
+          <Route path="/kursplan" element={<PublicSchedule />} />
+          <Route path="/preise" element={<Pricing />} />
+          <Route path="/trainer" element={<Trainers />} />
+          <Route path="/ueber-uns" element={<About />} />
+          <Route path="/probetraining" element={<Trial />} />
+          <Route path="/kontakt" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/impressum" element={<Imprint />} />
+          <Route path="/datenschutz" element={<Privacy />} />
+          <Route path="/agb" element={<Terms />} />
+        </Route>
+
+        {/* Anmeldung und Onboarding */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/registrieren" element={<Register />} />
+        <Route path="/passwort-vergessen" element={<ForgotPassword />} />
+        <Route path="/passwort-zuruecksetzen" element={<ResetPassword />} />
+        <Route path="/onboarding" element={<Onboarding />} />
 
         {/* Mitglieder */}
         <Route element={<RoleGate allow={['member', 'coach', 'box-admin', 'super-admin']} />}>

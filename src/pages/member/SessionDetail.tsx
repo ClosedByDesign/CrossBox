@@ -103,7 +103,7 @@ export default function MemberSessionDetail() {
             <ProgressBar value={bookedCount} max={session.capacity} />
           </div>
           <p className="mt-1.5 text-xs text-muted">
-            {freeSpots > 0 ? `${freeSpots} Plätze frei` : 'Ausgebucht'}
+            {freeSpots === 0 ? 'Ausgebucht' : freeSpots === 1 ? '1 Platz frei' : `${freeSpots} Plätze frei`}
             {waitlistCount > 0 && ` · ${waitlistCount} auf der Warteliste`}
           </p>
         </Card>

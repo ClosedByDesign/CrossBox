@@ -11,8 +11,8 @@ export function sessionTone(entry: EnrichedSession) {
   if (entry.session.status === 'laeuft') return { label: 'Läuft gerade', tone: 'live' as const };
   if (entry.session.status === 'vorbei') return { label: 'Vorbei', tone: 'neutral' as const };
   if (entry.freeSpots === 0) return { label: 'Ausgebucht', tone: 'danger' as const };
-  if (entry.freeSpots <= 2) return { label: `${entry.freeSpots} Plätze frei`, tone: 'warning' as const };
-  return { label: `${entry.freeSpots} Plätze frei`, tone: 'success' as const };
+  const label = entry.freeSpots === 1 ? '1 Platz frei' : `${entry.freeSpots} Plätze frei`;
+  return { label, tone: entry.freeSpots <= 2 ? ('warning' as const) : ('success' as const) };
 }
 
 export function SessionRow({ entry, to, showDate }: { entry: EnrichedSession; to: string; showDate?: boolean }) {
