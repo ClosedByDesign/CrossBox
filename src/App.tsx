@@ -4,7 +4,7 @@ import { DemoBar } from './components/layout/DemoBar';
 import { ThemeManager } from './components/layout/ThemeToggle';
 import { Toaster } from './components/ui/Toast';
 import { RoleGate } from './routes/RoleGate';
-import { NotFound, Placeholder } from './pages/system/Placeholder';
+import { NotFound } from './pages/system/Placeholder';
 
 import MemberDashboard from './pages/member/Dashboard';
 import MemberSchedule from './pages/member/Schedule';
@@ -40,6 +40,17 @@ import {
 import { AdminNews, AdminNewsEdit, AdminRequests } from './pages/admin/AdminContent';
 import AdminStats from './pages/admin/AdminStats';
 import AdminSettings from './pages/admin/AdminSettings';
+import {
+  PlatformBilling,
+  PlatformDashboard,
+  PlatformFeatures,
+  PlatformPlans,
+  PlatformSettings,
+  PlatformStats,
+  PlatformSupport,
+  PlatformTenantDetail,
+  PlatformTenants,
+} from './pages/platform/PlatformPages';
 import { TvDaySchedule, TvLauncher, TvLeaderboard, TvSession, TvTimer } from './pages/tv/TvViews';
 import Kiosk from './pages/tv/Kiosk';
 
@@ -127,15 +138,16 @@ export default function App() {
         {/* Plattform */}
         <Route element={<RoleGate allow={['super-admin']} />}>
           <Route path="/platform" element={<AppShell />}>
-            <Route index element={<Placeholder title="Plattform-Dashboard" />} />
-            <Route path="mandanten" element={<Placeholder title="Mandanten" />} />
-            <Route path="abrechnung" element={<Placeholder title="Abrechnung" />} />
-            <Route path="tarife" element={<Placeholder title="Plattform-Tarife" />} />
-            <Route path="statistiken" element={<Placeholder title="Statistiken" />} />
-            <Route path="support" element={<Placeholder title="Support" />} />
-            <Route path="features" element={<Placeholder title="Features" />} />
-            <Route path="einstellungen" element={<Placeholder title="Einstellungen" />} />
-            <Route path="benachrichtigungen" element={<Placeholder title="Benachrichtigungen" />} />
+            <Route index element={<PlatformDashboard />} />
+            <Route path="mandanten" element={<PlatformTenants />} />
+            <Route path="mandanten/:tenantId" element={<PlatformTenantDetail />} />
+            <Route path="abrechnung" element={<PlatformBilling />} />
+            <Route path="tarife" element={<PlatformPlans />} />
+            <Route path="statistiken" element={<PlatformStats />} />
+            <Route path="support" element={<PlatformSupport />} />
+            <Route path="features" element={<PlatformFeatures />} />
+            <Route path="einstellungen" element={<PlatformSettings />} />
+            <Route path="benachrichtigungen" element={<Notifications />} />
           </Route>
         </Route>
 

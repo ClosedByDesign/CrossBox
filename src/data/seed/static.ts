@@ -57,6 +57,7 @@ export const TENANTS: Tenant[] = [
     waitlistEnabled: true,
     noShowFeeCents: 0,
     openingHours: [],
+    memberCount: 203,
   },
   {
     id: 't-hafenkante',
@@ -76,6 +77,7 @@ export const TENANTS: Tenant[] = [
     waitlistEnabled: true,
     noShowFeeCents: 0,
     openingHours: [],
+    memberCount: 71,
   },
   {
     id: 't-isartal',
@@ -95,6 +97,7 @@ export const TENANTS: Tenant[] = [
     waitlistEnabled: false,
     noShowFeeCents: 0,
     openingHours: [],
+    memberCount: 0,
   },
 ];
 

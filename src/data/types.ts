@@ -33,6 +33,8 @@ export interface Tenant {
   waitlistEnabled: boolean;
   noShowFeeCents: number;
   openingHours: OpeningHour[];
+  /** Gepflegte Mitgliederzahl – für Boxen, deren Mitglieder nicht im Demo-Datensatz liegen */
+  memberCount?: number;
 }
 
 export interface User {
