@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light-Theme (Standard-Tokens) */
+    --c-canvas: 245 246 249;
+    --c-surface: 255 255 255;
+    --c-elevated: 238 241 245;
+    --c-line: 216 220 228;
+    --c-ink: 18 21 26;
+    --c-muted: 92 100 112;
+    --c-brand: 219 66 12;
+    --c-brand-soft: 253 234 226;
+    --c-brand-ink: 255 255 255;
+    --c-success: 22 133 64;
+    --c-success-soft: 223 245 230;
+    --c-warning: 176 98 0;
+    --c-warning-soft: 253 238 214;
+    --c-danger: 200 35 51;
+    --c-danger-soft: 253 228 231;
+    --c-info: 21 101 192;
+    --c-info-soft: 224 238 253;
+    color-scheme: light;
+  }
+
+  .dark {
+    /* Dark-Theme: Box-Atmosphäre, Standard beim ersten Aufruf ohne Systemhinweis */
+    --c-canvas: 15 17 21;
+    --c-surface: 23 26 32;
+    --c-elevated: 32 36 44;
+    --c-line: 47 52 62;
+    --c-ink: 242 243 245;
+    --c-muted: 153 160 172;
+    --c-brand: 255 90 31;
+    --c-brand-soft: 60 28 14;
+    --c-brand-ink: 255 255 255;
+    --c-success: 61 208 122;
+    --c-success-soft: 17 53 34;
+    --c-warning: 255 176 32;
+    --c-warning-soft: 58 42 12;
+    --c-danger: 255 99 122;
+    --c-danger-soft: 62 24 31;
+    --c-info: 96 165 250;
+    --c-info-soft: 22 39 62;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-semibold tracking-tight;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
+  }
+
+  /* Dezente Scrollbars, damit dichte Tabellen und der Wochenplan ruhig wirken */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--c-line)) transparent;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface border border-line rounded-xl;
+  }
+
+  .input-base {
+    @apply w-full rounded-lg border border-line bg-elevated px-3 py-2 text-sm text-ink
+           placeholder:text-muted/70 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand;
+  }
+
+  .label-base {
+    @apply block text-xs font-medium uppercase tracking-wide text-muted mb-1.5;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
