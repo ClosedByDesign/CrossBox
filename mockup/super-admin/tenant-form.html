@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mandant bearbeiten — Super-Admin</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/admin.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<div class="admin-shell">
+  <aside id="sidebar-chrome" class="admin-sidebar"></aside>
+  <main class="admin-main">
+    <a class="back-link" href="tenants.html">&larr; Zurück zur Mandantenliste</a>
+    <h1 id="form-title">Neuer Mandant</h1>
+
+    <div class="card" style="max-width:520px;">
+      <form action="success.html" method="get">
+        <input type="hidden" name="back" value="tenants.html">
+        <input type="hidden" name="backLabel" value="Zurück zur Mandantenliste">
+        <input type="hidden" name="title" value="Mandant gespeichert">
+        <input type="hidden" name="message" id="message-field" value="Der Mandant wurde gespeichert.">
+
+        <div class="form-row">
+          <label for="name">Boxname</label>
+          <input type="text" id="name" name="name" placeholder="z.B. CrossFit Hafenkante">
+        </div>
+        <div class="form-row">
+          <label for="ort">Ort / Adresse</label>
+          <input type="text" id="ort" name="ort" placeholder="z.B. Hamburg">
+        </div>
+        <div class="form-row">
+          <label for="admin">Box-Admin</label>
+          <select id="admin" name="admin">
+            <option value="">Kein Admin zugewiesen</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="status">Status</label>
+          <select id="status" name="status">
+            <option value="aktiv">Aktiv</option>
+            <option value="inaktiv">Inaktiv</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Speichern</button>
+          <a class="btn btn-secondary" href="tenants.html">Abbrechen</a>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('super-admin', 'tenants');
+
+  var boxAdmins = MOCK.users.filter(function (u) { return u.role === 'box-admin'; });
+  var adminSelect = document.getElementById('admin');
+  boxAdmins.forEach(function (u) {
+    var opt = document.createElement('option');
+    opt.value = u.id;
+    opt.textContent = u.name;
+    adminSelect.appendChild(opt);
+  });
+
+  var tenant = MOCK.getTenant(qp('id'));
+  if (tenant) {
+    document.getElementById('form-title').textContent = 'Mandant bearbeiten';
+    document.getElementById('name').value = tenant.name;
+    document.getElementById('ort').value = tenant.ort;
+    document.getElementById('status').value = tenant.status;
+    if (tenant.boxAdminId) adminSelect.value = tenant.boxAdminId;
+    document.getElementById('message-field').value = '"' + tenant.name + '" wurde aktualisiert.';
+  }
+
+  document.querySelector('form').addEventListener('submit', function () {
+    var name = document.getElementById('name').value || 'Neuer Mandant';
+    if (!tenant) {
+      document.getElementById('message-field').value = '"' + name + '" wurde als neuer Mandant angelegt.';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erledigt — CrossFit Rheinblick</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/member.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<main class="member-content">
+  <div class="container-narrow">
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h1 id="success-title">Erledigt</h1>
+      <p id="success-message"></p>
+      <a id="success-back" class="btn btn-primary" href="dashboard.html">Zurück</a>
+    </div>
+  </div>
+</main>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('member', '');
+  document.getElementById('success-title').textContent = qp('title', 'Erledigt');
+  document.getElementById('success-message').textContent = qp('message', 'Deine Änderung wurde übernommen.');
+  var back = document.getElementById('success-back');
+  back.href = qp('back', 'dashboard.html');
+  back.textContent = qp('backLabel', 'Zurück');
+</script>
+</body>
+</html>

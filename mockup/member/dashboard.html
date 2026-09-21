@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursplan — CrossFit Rheinblick</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/member.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<main class="member-content">
+  <div class="container-narrow">
+    <div class="page-header">
+      <h1>Kursplan</h1>
+    </div>
+    <p>Woche 21.09. – 27.09.2026</p>
+    <div id="week-grid" class="week-grid"></div>
+  </div>
+</main>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('member', 'dashboard');
+
+  var weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+  var sessions = MOCK.courseSessions.filter(function (cs) { return cs.status === 'live' || cs.status === 'upcoming'; });
+
+  var html = '';
+  weekdays.forEach(function (day) {
+    var dayIsToday = day === 'Montag'; // heute: Montag, 21.09.2026
+    html += '<div class="day-heading">' + day + (dayIsToday ? ' · heute' : '') + '</div>';
+    var daySessions = sessions.filter(function (cs) { return cs.weekday === day; });
+    if (daySessions.length === 0) {
+      html += '<p class="empty-hint">Keine Kurse geplant.</p>';
+    } else {
+      daySessions.forEach(function (cs) { html += renderCourseCard(cs); });
+    }
+  });
+  document.getElementById('week-grid').innerHTML = html;
+</script>
+</body>
+</html>

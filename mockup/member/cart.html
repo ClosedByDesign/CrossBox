@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warenkorb — CrossFit Rheinblick</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/member.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<main class="member-content">
+  <div class="container-narrow">
+    <a class="back-link" href="shop.html">&larr; Weiter einkaufen</a>
+    <h1>Warenkorb</h1>
+    <div class="card" id="cart-mount"></div>
+    <a class="btn btn-primary btn-block" style="margin-top:1.25rem;" href="checkout-confirmation.html">Zur Kasse</a>
+  </div>
+</main>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('member', 'shop');
+
+  var rowsHtml = MOCK.cartDemo.map(function (item) {
+    var a = MOCK.getArticle(item.articleId);
+    return '<div class="cart-row">' +
+      '<div>' + a.emoji + '&nbsp; ' + a.name + '<div class="empty-hint">Menge: ' + item.menge + '</div></div>' +
+      '<div class="shop-price">' + formatPreis(a.preis * item.menge) + '</div>' +
+    '</div>';
+  }).join('');
+
+  var total = MOCK.cartDemo.reduce(function (sum, item) { return sum + MOCK.getArticle(item.articleId).preis * item.menge; }, 0);
+
+  document.getElementById('cart-mount').innerHTML = rowsHtml +
+    '<div class="cart-total-row"><span>Gesamt</span><span>' + formatPreis(total) + '</span></div>';
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+/* App-Header, Admin-Shell (Sidebar + Main), Container/Grid-Helfer */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+.app-user-name {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: none;
+}
+
+.logout-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.container-narrow {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 720px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Admin-Shell: linke Sidebar + Hauptbereich, für Super-/Box-Admin */
+.admin-shell {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(100vh - 58px);
+}
+
+.admin-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--bg-elevated);
+  border-right: 1px solid var(--border);
+  min-height: calc(100vh - 58px);
+  padding: 1.25rem 0.75rem;
+  position: sticky;
+  top: 58px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.admin-sidebar a {
+  display: block;
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.admin-sidebar a:hover {
+  background: var(--bg-elevated-2);
+  text-decoration: none;
+}
+
+.admin-sidebar a.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  padding: 1.5rem;
+}
+
+@media (max-width: 780px) {
+  .admin-shell { flex-direction: column; }
+  .admin-sidebar {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    position: static;
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .admin-main { padding: 1rem; }
+}
+
+/* Bottom-Tab-Bar für Mitglieder-Ansicht (mobile), wird per JS an <body> angehängt */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  z-index: 10;
+}
+
+.tab-bar a {
+  flex: 1;
+  text-align: center;
+  padding: 0.85rem 0.25rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.tab-bar a:hover {
+  text-decoration: none;
+  color: var(--text);
+}
+
+.tab-bar a.active {
+  color: var(--accent-strong);
+}
+
+.member-content {
+  padding-bottom: 4.5rem; /* Platz für die fixe Bottom-Tab-Bar */
+}
+
+@media (min-width: 780px) {
+  .tab-bar {
+    position: static;
+    border-top: none;
+    border-bottom: 1px solid var(--border);
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .tab-bar a {
+    flex: none;
+    padding: 0.9rem 1.25rem;
+  }
+  .member-content { padding-bottom: 1.5rem; }
+}

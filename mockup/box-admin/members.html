@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mitglieder — Box-Admin</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/admin.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<div class="admin-shell">
+  <aside id="sidebar-chrome" class="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="page-header">
+      <div>
+        <h1>Mitglieder</h1>
+        <p class="page-subtitle">Userverwaltung deiner Box</p>
+      </div>
+      <a class="btn btn-primary" href="member-form.html">+ Neues Mitglied</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Name</th><th>Nickname</th><th>E-Mail</th><th>Status</th><th></th></tr></thead>
+        <tbody id="members-mount"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('box-admin', 'members');
+
+  var members = MOCK.users.filter(function (u) { return u.role === 'member' && u.tenantId === CURRENT_TENANT_ID; });
+  document.getElementById('members-mount').innerHTML = members.map(function (u) {
+    return '<tr>' +
+      '<td>' + avatarHtml(u, 32) + '</td>' +
+      '<td>' + u.name + '</td>' +
+      '<td>' + u.nickname + '</td>' +
+      '<td>' + u.email + '</td>' +
+      '<td>' + badgeHtml('Aktiv', 'success') + '</td>' +
+      '<td><a href="member-form.html?id=' + u.id + '">Bearbeiten</a></td>' +
+    '</tr>';
+  }).join('');
+</script>
+</body>
+</html>

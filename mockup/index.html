@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrossFit Box — Anmelden</title>
+<link rel="stylesheet" href="shared/css/base.css">
+<link rel="stylesheet" href="shared/css/layout.css">
+<link rel="stylesheet" href="shared/css/components.css">
+<style>
+  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1.5rem; }
+  .landing { max-width: 400px; width: 100%; }
+  .landing-logo { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 2rem; }
+  .landing-logo .brand { width: 56px; height: 56px; font-size: 1.3rem; border-radius: 14px; }
+  .landing-logo h1 { font-size: 1.4rem; margin: 0; }
+  .landing-logo p { margin: 0; font-size: 0.9rem; }
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 0.75rem; }
+  .role-card { text-align: center; padding: 1rem 0.5rem; }
+  .role-card .role-icon { font-size: 1.6rem; margin-bottom: 0.35rem; }
+  .role-card .role-label { font-weight: 700; font-size: 0.88rem; }
+  .divider-text { text-align: center; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 1.75rem 0 0.75rem; }
+  .prototype-note { margin-top: 2rem; font-size: 0.78rem; color: var(--text-muted); text-align: center; }
+</style>
+</head>
+<body>
+  <div class="landing">
+    <div class="landing-logo">
+      <span class="brand">CF</span>
+      <h1>CrossFit Rheinblick</h1>
+      <p>Kurse buchen. Punkten. Gemeinsam trainieren.</p>
+    </div>
+
+    <div class="card">
+      <form action="member/dashboard.html" method="get">
+        <div class="form-row">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" placeholder="anna@example.com" value="anna@example.com">
+        </div>
+        <div class="form-row">
+          <label for="password">Passwort</label>
+          <input type="password" id="password" placeholder="••••••••" value="demo1234">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Als Mitglied anmelden</button>
+      </form>
+    </div>
+
+    <div class="divider-text">Prototyp — andere Ansichten öffnen</div>
+    <div class="role-grid">
+      <a class="card card-link role-card" href="box-admin/dashboard.html">
+        <div class="role-icon">🏋️</div>
+        <div class="role-label">Box-Admin</div>
+      </a>
+      <a class="card card-link role-card" href="super-admin/tenants.html">
+        <div class="role-icon">🏢</div>
+        <div class="role-label">Super-Admin</div>
+      </a>
+      <a class="card card-link role-card" href="tv/display.html">
+        <div class="role-icon">📺</div>
+        <div class="role-label">TV-Anzeige</div>
+      </a>
+      <a class="card card-link role-card" href="member/dashboard.html">
+        <div class="role-icon">🙋</div>
+        <div class="role-label">Mitglied</div>
+      </a>
+    </div>
+
+    <p class="prototype-note">Klickbarer Mockup-Prototyp mit Fake-Daten — keine echte Anmeldung, kein echtes Speichern.</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Punkte vergeben — Box-Admin</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/admin.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<div class="admin-shell">
+  <aside id="sidebar-chrome" class="admin-sidebar"></aside>
+  <main class="admin-main">
+    <a class="back-link" href="dashboard.html">&larr; Zurück zum Dashboard</a>
+    <div id="content-mount" style="max-width:640px;"></div>
+  </main>
+</div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('box-admin', 'dashboard');
+
+  var cs = MOCK.getCourseSession(qp('id')) || MOCK.getCourseSession('cs-3');
+  var ct = MOCK.getCourseType(cs.courseTypeId);
+  var existingPoints = {};
+  MOCK.leaderboardEntries.filter(function (e) { return e.courseSessionId === cs.id; }).forEach(function (e) { existingPoints[e.userId] = e.points; });
+
+  var rowsHtml = cs.participantIds.map(function (userId) {
+    var u = MOCK.getUser(userId);
+    var val = existingPoints.hasOwnProperty(userId) ? existingPoints[userId] : '';
+    return '<tr>' +
+      '<td>' + avatarHtml(u, 30) + '</td>' +
+      '<td>' + u.name + '</td>' +
+      '<td><input class="points-input" type="number" min="0" name="points_' + u.id + '" value="' + val + '" placeholder="0"></td>' +
+    '</tr>';
+  }).join('');
+
+  document.getElementById('content-mount').innerHTML =
+    '<div class="page-header"><h1>' + ct.name + '</h1>' + (cs.pointsGiven ? badgeHtml('Punkte vergeben', 'success') : badgeHtml('Punkte offen', 'warning')) + '</div>' +
+    '<p>' + formatDatum(cs.date, cs.weekday) + ' · ' + cs.participantIds.length + ' Teilnehmer</p>' +
+    '<form action="success.html" method="get">' +
+      '<input type="hidden" name="title" value="Punkte gespeichert">' +
+      '<input type="hidden" name="message" value="Die Punkte für &quot;' + ct.name + '&quot; wurden gespeichert und fließen ins Leaderboard ein.">' +
+      '<input type="hidden" name="back" value="dashboard.html">' +
+      '<input type="hidden" name="backLabel" value="Zurück zum Dashboard">' +
+      '<div class="table-wrap" style="margin-bottom:1.25rem;">' +
+        '<table><thead><tr><th></th><th>Mitglied</th><th>Punkte</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>' +
+      '</div>' +
+      '<div class="form-actions">' +
+        '<button type="submit" class="btn btn-primary">Punkte speichern</button>' +
+        '<a class="btn btn-secondary" href="dashboard.html">Abbrechen</a>' +
+      '</div>' +
+    '</form>';
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mandanten — Super-Admin</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/admin.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<div class="admin-shell">
+  <aside id="sidebar-chrome" class="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="page-header">
+      <div>
+        <h1>Mandanten</h1>
+        <p class="page-subtitle">Alle CrossFit-Boxen auf der Plattform</p>
+      </div>
+      <a class="btn btn-primary" href="tenant-form.html">+ Neuer Mandant</a>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Box</th><th>Ort</th><th>Box-Admin</th><th>Mitglieder</th><th>Status</th><th></th></tr></thead>
+        <tbody id="tenants-mount"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('super-admin', 'tenants');
+
+  document.getElementById('tenants-mount').innerHTML = MOCK.tenants.map(function (t) {
+    var admin = MOCK.getUser(t.boxAdminId);
+    return '<tr>' +
+      '<td>' + t.name + '</td>' +
+      '<td>' + t.ort + '</td>' +
+      '<td>' + (admin ? admin.name : '<span class="empty-hint">kein Admin zugewiesen</span>') + '</td>' +
+      '<td>' + t.mitgliederAnzahl + '</td>' +
+      '<td>' + badgeHtml(t.status === 'aktiv' ? 'Aktiv' : 'Inaktiv', t.status === 'aktiv' ? 'success' : 'muted') + '</td>' +
+      '<td><a href="tenant-form.html?id=' + t.id + '">Bearbeiten</a></td>' +
+    '</tr>';
+  }).join('');
+</script>
+</body>
+</html>

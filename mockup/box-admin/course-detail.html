@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursdetail — Box-Admin</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/admin.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<div class="admin-shell">
+  <aside id="sidebar-chrome" class="admin-sidebar"></aside>
+  <main class="admin-main">
+    <a class="back-link" href="course-types.html">&larr; Zurück zur Kursverwaltung</a>
+    <div id="content-mount" style="max-width:640px;"></div>
+  </main>
+</div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('box-admin', 'course-types');
+
+  var cs = MOCK.getCourseSession(qp('id')) || MOCK.getCourseSession('cs-5');
+  var ct = MOCK.getCourseType(cs.courseTypeId);
+  var exercises = MOCK.exercisesFor(cs.id);
+  var backParam = 'back=' + encodeURIComponent('course-detail.html?id=' + cs.id) + '&backLabel=' + encodeURIComponent('Zurück zum Kurs');
+
+  var exercisesHtml = exercises.length
+    ? '<div class="exercise-list">' + exercises.map(function (ex) {
+        return '<div class="exercise-item">' +
+          '<span class="exercise-order">' + ex.reihenfolge + '</span>' +
+          '<div style="flex:1;">' +
+            '<strong>' + ex.name + '</strong>' +
+            '<div>' + ex.beschreibung + '</div>' +
+          '</div>' +
+          '<div style="display:flex;flex-direction:column;gap:0.3rem;">' +
+            '<a href="success.html?title=' + encodeURIComponent('Übung aktualisiert') + '&message=' + encodeURIComponent('"' + ex.name + '" wurde bearbeitet.') + '&' + backParam + '">Bearbeiten</a>' +
+            '<a href="success.html?title=' + encodeURIComponent('Übung gelöscht') + '&message=' + encodeURIComponent('"' + ex.name + '" wurde aus dem Kurs entfernt.') + '&' + backParam + '">Löschen</a>' +
+          '</div>' +
+        '</div>';
+      }).join('') + '</div>'
+    : '<p class="empty-hint">Noch keine Übungen angelegt.</p>';
+
+  var participantsLink = cs.status === 'past'
+    ? '<a class="btn ' + (cs.pointsGiven ? 'btn-secondary' : 'btn-primary') + '" href="course-session-participants.html?id=' + cs.id + '">' +
+        (cs.pointsGiven ? 'Punkte ansehen' : 'Punkte vergeben') + '</a>'
+    : '';
+
+  document.getElementById('content-mount').innerHTML =
+    '<div class="page-header"><h1>' + ct.name + '</h1>' + courseStatusBadge(cs) + '</div>' +
+    '<p>' + formatDatum(cs.date, cs.weekday) + ' · ' + ct.time + ' Uhr · ' + cs.participantIds.length + '/' + ct.maxParticipants + ' Teilnehmer' + (cs.waitlistIds.length ? ' · ' + cs.waitlistIds.length + ' Warteliste' : '') + '</p>' +
+
+    '<div class="form-actions" style="margin:1rem 0 1.75rem;">' +
+      '<a class="btn btn-secondary" href="../tv/display.html?course=' + cs.id + '" target="_blank" rel="noopener">Beamer-Vorschau &#8599;</a>' +
+      participantsLink +
+    '</div>' +
+
+    '<h2>Übungen</h2>' +
+    exercisesHtml +
+
+    '<div class="card" style="margin-top:1.25rem;">' +
+      '<h3>Übung hinzufügen</h3>' +
+      '<form action="success.html" method="get">' +
+        '<input type="hidden" name="title" value="Übung hinzugefügt">' +
+        '<input type="hidden" name="back" value="course-detail.html?id=' + cs.id + '">' +
+        '<input type="hidden" name="backLabel" value="Zurück zum Kurs">' +
+        '<div class="form-row"><label for="ex-name">Name</label><input type="text" id="ex-name" name="exname" placeholder="z.B. WOD &quot;Ostwind&quot;"></div>' +
+        '<div class="form-row"><label for="ex-desc">Beschreibung</label><textarea id="ex-desc" name="exdesc" rows="2" placeholder="z.B. For Time: 21-15-9 Thrusters & Pull-ups"></textarea></div>' +
+        '<button type="submit" class="btn btn-primary" id="add-exercise-btn">+ Übung speichern</button>' +
+      '</form>' +
+    '</div>';
+
+  document.getElementById('add-exercise-btn').addEventListener('click', function (e) {
+    var name = document.getElementById('ex-name').value;
+    var msg = name ? '"' + name + '" wurde dem Kurs hinzugefügt.' : 'Die Übung wurde dem Kurs hinzugefügt.';
+    var form = document.querySelector('form[action="success.html"]');
+    var hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.name = 'message';
+    hidden.value = msg;
+    form.appendChild(hidden);
+  });
+</script>
+</body>
+</html>

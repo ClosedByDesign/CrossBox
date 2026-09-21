@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mein Profil — CrossFit Rheinblick</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/layout.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/member.css">
+</head>
+<body>
+<div id="page-chrome"></div>
+<main class="member-content">
+  <div class="container-narrow">
+    <h1>Mein Profil</h1>
+    <div id="content-mount"></div>
+  </div>
+</main>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  initPageChrome('member', 'profile');
+
+  var me = MOCK.getUser(CURRENT_MEMBER_ID);
+  var myCourses = MOCK.courseSessions.filter(function (cs) {
+    return cs.participantIds.indexOf(CURRENT_MEMBER_ID) !== -1 && (cs.status === 'live' || cs.status === 'upcoming');
+  });
+
+  var coursesHtml = myCourses.length
+    ? '<div class="booked-course-list">' + myCourses.map(function (cs) { return renderCourseCard(cs); }).join('') + '</div>'
+    : '<p class="empty-hint">Du bist aktuell in keinem Kurs angemeldet.</p>';
+
+  document.getElementById('content-mount').innerHTML =
+    '<div class="profile-avatar-row">' +
+      avatarHtml(me, 72) +
+      '<div><button type="button" class="btn btn-secondary btn-sm" disabled>Profilbild ändern (Demo)</button></div>' +
+    '</div>' +
+
+    '<div class="card" style="margin-bottom:1.5rem;">' +
+      '<form action="success.html" method="get">' +
+        '<input type="hidden" name="title" value="Profil gespeichert">' +
+        '<input type="hidden" name="message" value="Deine Profildaten wurden aktualisiert.">' +
+        '<input type="hidden" name="back" value="profile.html">' +
+        '<input type="hidden" name="backLabel" value="Zurück zum Profil">' +
+        '<div class="form-row"><label for="nickname">Nickname</label><input type="text" id="nickname" value="' + me.nickname + '" name="nickname"></div>' +
+        '<div class="form-row"><label for="email">E-Mail</label><input type="email" id="email" value="' + me.email + '" name="email" disabled></div>' +
+        '<div class="form-row"><label for="password">Neues Passwort</label><input type="password" id="password" name="password" placeholder="••••••••"></div>' +
+        '<button type="submit" class="btn btn-primary">Speichern</button>' +
+      '</form>' +
+    '</div>' +
+
+    '<h2>Meine gebuchten Kurse</h2>' +
+    coursesHtml;
+</script>
+</body>
+</html>

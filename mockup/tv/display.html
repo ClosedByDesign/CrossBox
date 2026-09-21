@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beamer-Anzeige — CrossFit Rheinblick</title>
+<link rel="stylesheet" href="../shared/css/base.css">
+<link rel="stylesheet" href="../shared/css/components.css">
+<link rel="stylesheet" href="../shared/css/tv.css">
+</head>
+<body class="tv-body">
+  <a class="tv-exit-link" href="../index.html">Demo verlassen</a>
+  <div id="tv-content"></div>
+
+<script src="../shared/js/mock-data.js"></script>
+<script src="../shared/js/render-helpers.js"></script>
+<script>
+  var cs = MOCK.getCourseSession(qp('course')) || MOCK.getCourseSession('cs-5');
+  var ct = MOCK.getCourseType(cs.courseTypeId);
+  var exercises = MOCK.exercisesFor(cs.id);
+
+  var exercisesHtml = exercises.length
+    ? '<div class="tv-exercise-list">' + exercises.map(function (ex) {
+        return '<div class="tv-exercise">' +
+          '<div class="tv-exercise-order">' + ex.reihenfolge + '</div>' +
+          '<div><div class="tv-exercise-name">' + ex.name + '</div><div class="tv-exercise-desc">' + ex.beschreibung + '</div></div>' +
+        '</div>';
+      }).join('') + '</div>'
+    : '<p class="tv-empty">Noch keine Übungen für diesen Kurs hinterlegt.</p>';
+
+  document.getElementById('tv-content').innerHTML =
+    '<div class="tv-header">' +
+      '<div class="tv-course-name">' + ct.name + '</div>' +
+      '<div class="tv-course-meta">' + formatDatum(cs.date, cs.weekday) + ' · ' + ct.time + ' Uhr</div>' +
+    '</div>' +
+    exercisesHtml;
+</script>
+</body>
+</html>
