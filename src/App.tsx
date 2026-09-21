@@ -9,6 +9,8 @@ import { NotFound, Placeholder } from './pages/system/Placeholder';
 import MemberDashboard from './pages/member/Dashboard';
 import MemberSchedule from './pages/member/Schedule';
 import MemberSessionDetail from './pages/member/SessionDetail';
+import { TvDaySchedule, TvLauncher, TvLeaderboard, TvSession, TvTimer } from './pages/tv/TvViews';
+import Kiosk from './pages/tv/Kiosk';
 
 export default function App() {
   return (
@@ -93,6 +95,14 @@ export default function App() {
             <Route path="benachrichtigungen" element={<Placeholder title="Benachrichtigungen" />} />
           </Route>
         </Route>
+
+        {/* Beamer und Kiosk – ohne Anmeldung, ohne App-Navigation */}
+        <Route path="/tv" element={<TvLauncher />} />
+        <Route path="/tv/kurs/:sessionId" element={<TvSession />} />
+        <Route path="/tv/timer" element={<TvTimer />} />
+        <Route path="/tv/leaderboard" element={<TvLeaderboard />} />
+        <Route path="/tv/kursplan" element={<TvDaySchedule />} />
+        <Route path="/kiosk" element={<Kiosk />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
