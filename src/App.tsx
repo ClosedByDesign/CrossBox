@@ -9,6 +9,15 @@ import { NotFound, Placeholder } from './pages/system/Placeholder';
 import MemberDashboard from './pages/member/Dashboard';
 import MemberSchedule from './pages/member/Schedule';
 import MemberSessionDetail from './pages/member/SessionDetail';
+import MyBookings from './pages/member/MyBookings';
+import CheckIn from './pages/member/CheckIn';
+import Leaderboard from './pages/member/Leaderboard';
+import Records, { RecordDetail } from './pages/member/Records';
+import Results from './pages/member/Results';
+import WodLibrary from './pages/member/WodLibrary';
+import Shop, { ArticleDetail, Cart, Checkout, Orders } from './pages/member/Shop';
+import Membership, { Invoices } from './pages/member/Membership';
+import { Help, News, NewsDetail, Notifications, Profile, Settings } from './pages/member/Account';
 import { TvDaySchedule, TvLauncher, TvLeaderboard, TvSession, TvTimer } from './pages/tv/TvViews';
 import Kiosk from './pages/tv/Kiosk';
 
@@ -25,21 +34,26 @@ export default function App() {
             <Route index element={<MemberDashboard />} />
             <Route path="kursplan" element={<MemberSchedule />} />
             <Route path="kurs/:sessionId" element={<MemberSessionDetail />} />
-            <Route path="buchungen" element={<Placeholder title="Meine Buchungen" />} />
-            <Route path="checkin" element={<Placeholder title="Check-in" />} />
-            <Route path="wods" element={<Placeholder title="WODs" />} />
-            <Route path="ergebnisse" element={<Placeholder title="Meine Ergebnisse" />} />
-            <Route path="rekorde" element={<Placeholder title="Persönliche Rekorde" />} />
-            <Route path="leaderboard" element={<Placeholder title="Leaderboard" />} />
-            <Route path="mitgliedschaft" element={<Placeholder title="Mitgliedschaft" />} />
-            <Route path="rechnungen" element={<Placeholder title="Rechnungen" />} />
-            <Route path="shop" element={<Placeholder title="Shop" />} />
-            <Route path="bestellungen" element={<Placeholder title="Bestellungen" />} />
-            <Route path="news" element={<Placeholder title="News" />} />
-            <Route path="benachrichtigungen" element={<Placeholder title="Benachrichtigungen" />} />
-            <Route path="profil" element={<Placeholder title="Profil" />} />
-            <Route path="einstellungen" element={<Placeholder title="Einstellungen" />} />
-            <Route path="hilfe" element={<Placeholder title="Hilfe" />} />
+            <Route path="buchungen" element={<MyBookings />} />
+            <Route path="checkin" element={<CheckIn />} />
+            <Route path="wods" element={<WodLibrary />} />
+            <Route path="ergebnisse" element={<Results />} />
+            <Route path="rekorde" element={<Records />} />
+            <Route path="rekorde/:liftId" element={<RecordDetail />} />
+            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="mitgliedschaft" element={<Membership />} />
+            <Route path="rechnungen" element={<Invoices />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="shop/:articleId" element={<ArticleDetail />} />
+            <Route path="warenkorb" element={<Cart />} />
+            <Route path="kasse" element={<Checkout />} />
+            <Route path="bestellungen" element={<Orders />} />
+            <Route path="news" element={<News />} />
+            <Route path="news/:newsId" element={<NewsDetail />} />
+            <Route path="benachrichtigungen" element={<Notifications />} />
+            <Route path="profil" element={<Profile />} />
+            <Route path="einstellungen" element={<Settings />} />
+            <Route path="hilfe" element={<Help />} />
           </Route>
         </Route>
 
