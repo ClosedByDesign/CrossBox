@@ -57,6 +57,7 @@ export const de = {
   nav: {
     title: 'Navigation',
     allAreas: 'Alle Bereiche',
+    theme: 'Design',
     dashboard: 'Start',
     schedule: 'Kursplan',
     bookings: 'Buchungen',

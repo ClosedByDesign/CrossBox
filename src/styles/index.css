@@ -68,6 +68,12 @@
     @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-canvas;
   }
 
+  /* Grid-Spalten sollen nie über den Bildschirm wachsen, nur weil darin ein
+     abgeschnittener Text (truncate) oder eine breite Tabelle steckt */
+  .grid > * {
+    min-width: 0;
+  }
+
   /* Dezente Scrollbars, damit dichte Tabellen und der Wochenplan ruhig wirken */
   * {
     scrollbar-width: thin;
@@ -87,6 +93,26 @@
 
   .label-base {
     @apply block text-xs font-medium uppercase tracking-wide text-muted mb-1.5;
+  }
+
+  /* Mobil-Layout: Kennzahlen-Kacheln immer zweispaltig statt untereinander,
+     eine einzelne letzte Kachel nimmt die volle Breite */
+  html[data-layout='mobile'] .grid:has(> .stat-tile) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  html[data-layout='mobile'] .grid:has(> .stat-tile) > .stat-tile:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
+
+@layer utilities {
+  /* Abstand für die Home-Leiste bzw. Notch bei viewport-fit=cover */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
   }
 }
 

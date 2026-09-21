@@ -23,6 +23,8 @@ export interface Prefs {
   theme: Theme | 'system';
   locale: Locale;
   sidebarCollapsed: boolean;
+  /** Layout-Wahl: automatisch nach Gerät oder fest Mobil/Web (ältere gespeicherte Stände haben keinen Wert) */
+  layout?: 'auto' | 'mobile' | 'desktop';
 }
 
 interface DemoState {

@@ -47,7 +47,7 @@ export function DemoBar() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="fixed bottom-20 right-4 z-40 flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-2 text-xs font-semibold shadow-pop lg:bottom-5"
+          className="fixed bottom-20 right-4 z-40 flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-2 text-xs font-semibold shadow-pop lg:bottom-5 mobile:bottom-[calc(5rem+env(safe-area-inset-bottom))] mobile:px-3 mobile:py-1.5"
         >
           <Settings2 size={15} className="text-brand" />
           Demo
@@ -56,7 +56,7 @@ export function DemoBar() {
       )}
 
       {open && (
-        <div className="fixed bottom-20 right-4 z-40 w-[min(22rem,calc(100vw-2rem))] rounded-2xl border border-line bg-surface p-4 shadow-pop animate-slide-up lg:bottom-5">
+        <div className="fixed bottom-20 right-4 z-40 max-h-[calc(100dvh-7rem)] w-[min(22rem,calc(100vw-2rem))] overflow-y-auto rounded-2xl border border-line bg-surface p-4 shadow-pop animate-slide-up lg:bottom-5 mobile:bottom-[calc(5rem+env(safe-area-inset-bottom))]">
           <header className="mb-3 flex items-center justify-between">
             <div>
               <p className="font-display text-sm uppercase tracking-wide">Demo-Steuerung</p>
@@ -139,6 +139,19 @@ export function DemoBar() {
               options={[
                 { value: 'de', label: 'DE' },
                 { value: 'en', label: 'EN' },
+              ]}
+            />
+          </div>
+
+          <div className="mb-3 flex items-center justify-between gap-2">
+            <span className="label-base mb-0">Layout</span>
+            <SegmentedControl
+              value={prefs.layout ?? 'auto'}
+              onChange={(layout) => setPrefs({ layout })}
+              options={[
+                { value: 'auto', label: 'Auto' },
+                { value: 'mobile', label: 'Mobil' },
+                { value: 'desktop', label: 'Web' },
               ]}
             />
           </div>

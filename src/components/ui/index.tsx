@@ -191,13 +191,22 @@ export function StatTile({
     info: 'text-info',
   }[tone];
   return (
-    <div className="card p-4">
+    <div className="stat-tile card p-4 mobile:p-3">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-muted">{label}</span>
-        {icon && <span className={cn('opacity-70', toneText)}>{icon}</span>}
+        <span className="text-xs font-medium uppercase tracking-wide text-muted mobile:text-[0.65rem] mobile:leading-tight">{label}</span>
+        {icon && <span className={cn('opacity-70 mobile:[&>svg]:h-3.5 mobile:[&>svg]:w-3.5', toneText)}>{icon}</span>}
       </div>
-      <div className={cn('mt-1 font-display text-3xl font-bold leading-tight', toneText)}>{value}</div>
-      {hint && <div className="mt-0.5 text-xs text-muted">{hint}</div>}
+      <div
+        className={cn(
+          'mt-1 font-display text-3xl font-bold leading-tight mobile:truncate',
+          // Textwerte wie Tarifnamen sollen in der halben Kachelbreite in eine Zeile passen
+          typeof value === 'string' && value.length > 9 ? 'mobile:text-xl' : 'mobile:text-2xl',
+          toneText,
+        )}
+      >
+        {value}
+      </div>
+      {hint && <div className="mt-0.5 text-xs text-muted mobile:text-[0.7rem] mobile:leading-snug">{hint}</div>}
     </div>
   );
 }

@@ -202,6 +202,35 @@ export const PLATFORM_NAV: NavGroup[] = [
   },
 ];
 
+/** Bottom-Tabs für Box-Admin und Plattform – nur im Mobil-Layout, im Web gibt es die Sidebar */
+export const ADMIN_TABS: NavItem[] = [
+  { to: '/admin', label: 'Dashboard', key: 'nav.dashboard', icon: Gauge, end: true },
+  { to: '/admin/kursplan', label: 'Kursplanung', key: 'nav.scheduling', icon: CalendarDays },
+  { to: '/admin/mitglieder', label: 'Mitglieder', key: 'nav.members', icon: Users },
+  { to: '/admin/rechnungen', label: 'Rechnungen', key: 'nav.invoices', icon: Receipt },
+];
+
+export const PLATFORM_TABS: NavItem[] = [
+  { to: '/platform', label: 'Dashboard', key: 'nav.dashboard', icon: Gauge, end: true },
+  { to: '/platform/mandanten', label: 'Mandanten', key: 'nav.tenants', icon: Building2 },
+  { to: '/platform/support', label: 'Support', key: 'nav.support', icon: LifeBuoy },
+  { to: '/platform/abrechnung', label: 'Abrechnung', key: 'nav.billing', icon: CreditCard },
+];
+
+/** Bottom-Tabs je Rolle; Admin und Plattform bekommen sie nur im Mobil-Layout */
+export function tabsForRole(role: Role, mobileLayout: boolean): NavItem[] | null {
+  switch (role) {
+    case 'member':
+      return MEMBER_TABS;
+    case 'coach':
+      return COACH_TABS;
+    case 'box-admin':
+      return mobileLayout ? ADMIN_TABS : null;
+    case 'super-admin':
+      return mobileLayout ? PLATFORM_TABS : null;
+  }
+}
+
 export function navForRole(role: Role): NavGroup[] {
   switch (role) {
     case 'member':

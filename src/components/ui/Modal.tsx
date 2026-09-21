@@ -56,7 +56,7 @@ export function Modal({
           </button>
         </header>
         <div className="px-4 py-4">{children}</div>
-        {footer && <footer className="sticky bottom-0 flex justify-end gap-2 border-t border-line bg-surface px-4 py-3">{footer}</footer>}
+        {footer && <footer className="sticky bottom-0 flex justify-end gap-2 border-t border-line bg-surface px-4 py-3 mobile:pb-[calc(0.75rem+env(safe-area-inset-bottom))]">{footer}</footer>}
       </div>
     </div>
   );

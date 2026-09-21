@@ -59,6 +59,7 @@ export const en: Dictionary = {
   nav: {
     title: 'Navigation',
     allAreas: 'All areas',
+    theme: 'Theme',
     dashboard: 'Home',
     schedule: 'Schedule',
     bookings: 'Bookings',

@@ -18,6 +18,7 @@ import {
 import { ForgotPassword, Login, Onboarding, Register, ResetPassword } from './pages/auth/AuthPages';
 import { DemoBar } from './components/layout/DemoBar';
 import { ThemeManager } from './components/layout/ThemeToggle';
+import { LayoutManager } from './lib/device';
 import { Toaster } from './components/ui/Toast';
 import { RoleGate } from './routes/RoleGate';
 import { NotFound } from './pages/system/Placeholder';
@@ -74,6 +75,7 @@ export default function App() {
   return (
     <HashRouter>
       <ThemeManager />
+      <LayoutManager />
       <Routes>
         {/* Öffentliche Website */}
         <Route element={<PublicLayout />}>

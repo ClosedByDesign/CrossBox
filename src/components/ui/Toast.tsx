@@ -68,7 +68,7 @@ function ToastItem({ toast: item }: { toast: Toast }) {
 export function Toaster() {
   const toasts = useToasts((s) => s.toasts);
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-20 z-[60] mx-auto flex w-full max-w-sm flex-col gap-2 px-4 sm:bottom-6">
+    <div className="pointer-events-none fixed inset-x-0 bottom-20 z-[60] mx-auto flex w-full max-w-sm flex-col gap-2 px-4 sm:bottom-6 mobile:bottom-[calc(5.5rem+env(safe-area-inset-bottom))]">
       {toasts.map((item) => (
         <ToastItem key={item.id} toast={item} />
       ))}

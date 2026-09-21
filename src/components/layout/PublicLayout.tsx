@@ -6,6 +6,7 @@ import { useDb, useDemoStore } from '../../store';
 import { Button, LinkButton } from '../ui';
 import { ThemeToggle } from './ThemeToggle';
 import { MAIN_TENANT_ID } from '../../data/seed/static';
+import { useIsMobileLayout } from '../../lib/device';
 
 const NAV = [
   { to: '/kurse', label: 'Kurse' },
@@ -22,16 +23,17 @@ export function PublicLayout() {
   const tenant = db.tenants.find((t) => t.id === MAIN_TENANT_ID)!;
   const cookieChoice = useDemoStore((s) => s.cookieChoice);
   const setCookieChoice = useDemoStore((s) => s.setCookieChoice);
+  const mobile = useIsMobileLayout();
 
   return (
     <div className="flex min-h-screen flex-col bg-canvas">
-      <header className="sticky top-0 z-30 border-b border-line bg-canvas/95 backdrop-blur">
+      <header className="pt-safe sticky top-0 z-30 border-b border-line bg-canvas/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4">
-          <Link to="/" className="flex items-center gap-2 no-underline">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand font-display text-sm font-bold text-brand-ink">
+          <Link to="/" className="flex min-w-0 items-center gap-2 no-underline">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand font-display text-sm font-bold text-brand-ink">
               {tenant.initials}
             </span>
-            <span className="font-display text-base font-semibold uppercase tracking-wide">{tenant.name}</span>
+            <span className="truncate font-display text-base font-semibold uppercase tracking-wide">{tenant.name}</span>
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
@@ -51,8 +53,8 @@ export function PublicLayout() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
+          <div className="flex shrink-0 items-center gap-2">
+            {!mobile && <ThemeToggle />}
             <LinkButton to="/login" variant="secondary" size="sm" className="hidden sm:inline-flex">
               Anmelden
             </LinkButton>
@@ -74,7 +76,7 @@ export function PublicLayout() {
       {open && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div className="absolute inset-0 bg-black/60 animate-fade-in" onClick={() => setOpen(false)} />
-          <nav className="absolute inset-y-0 right-0 w-72 bg-surface px-4 py-4 animate-slide-up">
+          <nav className="pt-safe absolute inset-y-0 right-0 w-72 max-w-[85vw] overflow-y-auto bg-surface px-4 py-4 animate-slide-up">
             <div className="mb-4 flex items-center justify-between">
               <span className="font-display uppercase tracking-wide">Menü</span>
               <button type="button" onClick={() => setOpen(false)} aria-label="Schließen" className="p-1 text-muted">
@@ -97,6 +99,11 @@ export function PublicLayout() {
                   {item.label}
                 </NavLink>
               ))}
+              {mobile && (
+                <div className="mt-3 flex items-center gap-2 px-1 text-sm text-muted">
+                  <ThemeToggle /> Design
+                </div>
+              )}
               <NavLink to="/login" onClick={() => setOpen(false)} className="mt-3 rounded-lg border border-line px-3 py-2.5 text-center text-sm font-semibold no-underline text-ink">
                 Anmelden
               </NavLink>
@@ -110,8 +117,8 @@ export function PublicLayout() {
       </main>
 
       <footer className="border-t border-line bg-surface">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:grid-cols-2 lg:grid-cols-4 mobile:grid-cols-2 mobile:gap-x-4 mobile:gap-y-6 mobile:py-8">
+          <div className="mobile:col-span-2">
             <div className="mb-3 flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand font-display text-xs font-bold text-brand-ink">
                 {tenant.initials}
@@ -160,19 +167,19 @@ export function PublicLayout() {
             </ul>
           </div>
         </div>
-        <div className="border-t border-line px-4 py-4 text-center text-xs text-muted">
+        <div className="border-t border-line px-4 py-4 text-center text-xs text-muted mobile:pb-[calc(1rem+env(safe-area-inset-bottom))]">
           Klickbarer Prototyp mit Beispieldaten – keine echten Buchungen, keine echten Zahlungen.
         </div>
       </footer>
 
       {cookieChoice === null && (
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface px-4 py-4 shadow-pop">
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface px-4 py-4 shadow-pop mobile:pb-[calc(1rem+env(safe-area-inset-bottom))]">
           <div className="mx-auto flex max-w-4xl flex-col gap-3 sm:flex-row sm:items-center">
             <p className="flex-1 text-sm text-muted">
               Wir verwenden Cookies, die für den Betrieb der Seite nötig sind, sowie optionale Cookies für Statistik. Du kannst frei
               wählen. Mehr dazu in der <Link to="/datenschutz">Datenschutzerklärung</Link>.
             </p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 mobile:[&>button]:flex-1">
               <Button variant="secondary" size="sm" onClick={() => setCookieChoice('notwendig')}>
                 Nur notwendige
               </Button>

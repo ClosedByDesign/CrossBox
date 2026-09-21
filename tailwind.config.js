@@ -59,5 +59,8 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // `mobile:` greift, wenn LayoutManager ein Smartphone erkannt hat (html[data-layout="mobile"])
+    ({ addVariant }) => addVariant('mobile', 'html[data-layout="mobile"] &'),
+  ],
 };

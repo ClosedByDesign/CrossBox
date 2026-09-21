@@ -14,12 +14,14 @@ export function Tabs({ tabs, param = 'tab' }: { tabs: TabDef[]; param?: string }
   const active = searchParams.get(param) ?? tabs[0]?.key;
 
   return (
-    <div className="mb-4 flex gap-1 overflow-x-auto border-b border-line">
+    // Mobil: bis an den Bildschirmrand, damit sichtbar ist, dass die Leiste wischbar ist
+    <div className="mb-4 flex gap-1 overflow-x-auto border-b border-line mobile:-mx-4 mobile:px-4 mobile:[scrollbar-width:none]">
       {tabs.map((tab) => (
         <button
           key={tab.key}
           type="button"
-          onClick={() => {
+          onClick={(event) => {
+            event.currentTarget.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
             const next = new URLSearchParams(searchParams);
             next.set(param, tab.key);
             setSearchParams(next, { replace: true });
